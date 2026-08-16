@@ -1,0 +1,17 @@
+{
+  "lsp": {
+    "rust-analyzer": {
+      "binary": {
+        "path": "~/.rustup/toolchains/1.95.0-aarch64-apple-darwin/bin/rust-analyzer"
+      },
+      "initialization_options": {
+        "cargo": {
+          "allTargets": false
+        },
+        "check": {
+          "allTargets": false
+        }
+      }
+    }
+  }
+}

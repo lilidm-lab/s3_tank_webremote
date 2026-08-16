@@ -1,0 +1,46 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**/README.md"
+  pull_request:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  rust-checks:
+    name: Rust Checks
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        action:
+          - command: build
+            args: --release
+          - command: fmt
+            args: --all -- --check --color always
+          - command: clippy
+            args: --all-targets --all-features --workspace -- -D warnings
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install espup
+        run: cargo install espup --locked
+      - name: Setup Xtensa toolchain
+        run: |
+          espup install
+          . "$HOME/export-esp.sh"
+          rustup component add rustfmt clippy --toolchain esp
+          echo "$HOME/.rustup/toolchains/esp/xtensa-esp-elf/esp-15.2.0_20250920/xtensa-esp-elf/bin" >> "$GITHUB_PATH"
+      - name: Enable caching
+        uses: Swatinem/rust-cache@v2
+      - name: Install ldproxy
+        run: cargo install ldproxy
+      - name: Run command
+        run: cargo ${{ matrix.action.command }} ${{ matrix.action.args }}

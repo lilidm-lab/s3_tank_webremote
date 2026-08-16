@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Tank Remote</title>
+  </head>
+  <body>
+    <main id="app">
+      <header>
+        <span id="dot" class="dot"></span>
+        <span id="status">connecting</span>
+      </header>
+      <div id="pad">
+        <button data-dir="up" aria-label="up">▲</button>
+        <button data-dir="left" aria-label="left">◀</button>
+        <button data-dir="stop" aria-label="stop">■</button>
+        <button data-dir="right" aria-label="right">▶</button>
+        <button data-dir="down" aria-label="down">▼</button>
+      </div>
+      <img id="cam" alt="tank camera" hidden />
+      <pre id="telemetry" hidden></pre>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
