@@ -1,7 +1,7 @@
 # Plan: UI camera view (render `{"cam": b64}` telemetry as image)
 
 ## Goal
-Browser UI renders the tank's OV2640 jpeg stream instead of dumping base64 as
+Browser UI renders the tank's OV3660 jpeg stream instead of dumping base64 as
 raw JSON text (root README promises "camera frames stream from the tank").
 
 ## Tasks

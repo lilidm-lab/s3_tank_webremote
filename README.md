@@ -13,7 +13,7 @@ graph LR
 ## Layout
 
 - `remote/` — actix-web websocket server + vite UI, served through nginx, wired with docker compose
-- `esp_cam_tank/` — ESP32-S3 firmware (Rust, esp-idf-svc): OV2640 camera, LEDC motor PWM, ws client
+- `esp_cam_tank/` — ESP32-S3 firmware (Rust, esp-idf-svc): OV3660 camera, LEDC motor PWM, ws client
 
 ## Run
 

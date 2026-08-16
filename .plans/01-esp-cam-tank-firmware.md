@@ -3,11 +3,12 @@
 ## Goal
 Firmware for the tank device: connects WiFi, registers on the actix remote server
 (`remote/`, plan 00) over websocket `/ws/device`, drives 2 DC motors (LEDC PWM +
-direction pins) from `{"dir":...}` commands, and streams OV2640 JPEG frames as
+direction pins) from `{"dir":...}` commands, and streams OV3660 JPEG frames as
 telemetry JSON.
 
-Board: ESP32-S3-WROOM **N16R8** (16MB flash, 8MB octal PSRAM) + OV2640
-(camera pin map = Freenove ESP32-S3-WROOM CAM; adjust `src/pins.rs` + `src/motor.rs` if wiring differs).
+Board: ESP32-S3-WROOM **N16R8** (16MB flash, 8MB octal PSRAM) + OV3660
+(sensor PID-detected at runtime; OV2640 also supported — camera pin map = Freenove
+ESP32-S3-WROOM CAM; adjust `src/pins.rs` + `src/motor.rs` if wiring differs).
 
 ## Tasks
 - [x] 0. Retarget to esp32s3: `.cargo/config.toml`, `rust-toolchain.toml` (esp channel), `sdkconfig.defaults` (PSRAM octal/80M, 16MB flash, 64KB cache), `partitions.csv` (3M factory), CI xtensa toolchain
@@ -108,3 +109,7 @@ Board: ESP32-S3-WROOM **N16R8** (16MB flash, 8MB octal PSRAM) + OV2640
   cfg stack (verified in IDF pthread.c: attr->stacksize overrides cfg).
   Thread names `motor`/`cam`/`ws_tx` now show in task dumps. cargo check +
   clippy clean; runtime priority behavior pending hardware verification.
+- Docs synced to the real sensor (2026-08-16): root `README.md`,
+  `esp_cam_tank/README.md` and plan Goal/Board lines now say OV3660 (runtime
+  PID detect, OV2640 fallback); historical bring-up notes and the literal
+  `esp_cam` crate URL (contains "OV2640") intentionally left as-is.

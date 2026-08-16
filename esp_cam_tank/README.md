@@ -1,12 +1,14 @@
 # esp_cam_tank
 
-ESP32-S3 tank firmware: OV2640 camera stream + 2 DC motors (LEDC PWM) driven over
+ESP32-S3 tank firmware: OV3660 camera stream + 2 DC motors (LEDC PWM) driven over
 websocket from the actix remote server (`../remote`).
 
-Board: ESP32-S3-WROOM-N16R8 (16MB flash, 8MB octal PSRAM). Camera comes from the
-`esp_cam` crate (github.com/lidm0707/...-OV2640-by-RUST-bindgen-C-); the Freenove
-ESP32-S3-WROOM CAM pin map is stolen in `src/camera.rs` (QVGA JPEG, PSRAM
-framebuffers). Motor pins live in `src/motor.rs`.
+Board: ESP32-S3-WROOM-N16R8 (16MB flash, 8MB octal PSRAM). Sensor: OV3660 —
+`src/camera.rs` PID-detects at runtime (OV2640 also supported) and applies the
+16MHz XCLK + vflip/brightness/saturation tune the OV3660 needs for stable
+QVGA JPEG. Camera comes from the `esp_cam` crate
+(github.com/lidm0707/...-OV2640-by-RUST-bindgen-C-); Freenove ESP32-S3-WROOM CAM
+pin map, PSRAM framebuffers. Motor pins live in `src/motor.rs`.
 
 ## Wiring (L298N / TB6612-style driver)
 
